@@ -1,9 +1,6 @@
 import pandas as pd
 import numpy as np
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import datetime as dt
+
 
 class CAMML_class:
 	def __init__(self, filepath, mdlpath):
@@ -109,7 +106,7 @@ class CAMML_class:
 		self.other_data.columns = [i[0] for i in self.other_data.columns.str.split('_')]
 		self.other_data.rename(columns={'PM2.5(LTP)':'PM2.5', 'PM10(LTP)':'PM10', 'between':'between_time'}, inplace=True)
 
-		self.othercols = [i for i in self.other_data.columns if any(k in i for k in ['PM', 'CH', 'NO', 'O3'])]
+		self.othercols = [i for i in self.other_data.columns if any(k in i for k in ['PM', 'CH', 'NO', 'O3','WindDirection'])]
 
 
 		for num, col in enumerate(self.othercols):
