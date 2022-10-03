@@ -106,7 +106,7 @@ class CAMML_class:
 		self.other_data.columns = [i[0] for i in self.other_data.columns.str.split('_')]
 		self.other_data.rename(columns={'PM2.5(LTP)':'PM2.5', 'PM10(LTP)':'PM10', 'between':'between_time'}, inplace=True)
 
-		self.othercols = [i for i in self.other_data.columns if any(k in i for k in ['PM', 'CH', 'NO', 'O3','WindDirection'])]
+		self.othercols = [i for i in self.other_data.columns if any(k in i for k in ['PM', 'CH', 'NO', 'O3','sin','cosine'])]
 
 
 		for num, col in enumerate(self.othercols):
@@ -117,6 +117,7 @@ class CAMML_class:
 		# merging data
 		self.merged_data = pd.merge_asof(self.voc_data, self.merged_data, left_index=True, right_index=True, direction='nearest')  # changed right on to right index
 		self.merged_data['PM2.510'] = self.merged_data['PM10'] - self.merged_data['PM2.5']
+		self.merged_data['WindDirection'] = np.arctan2(self.merged_data['sin'],self.merged_data['cosine']) * (180/np.pi)
 
 
 	def unc_func(self):
